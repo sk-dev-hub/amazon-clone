@@ -30,7 +30,7 @@ const accountAndListFunc = (bool) => {
             
             <div class="flex">
                 <Link class="text-white h-[50px] p-2 pt-3 border-[1px] border-gray-900 rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
-                    AMAZON
+                    <img src="/images/logo/AMAZON_LOGO.png"  width="100" alt="">
                 </Link>
             </div>
         
@@ -67,7 +67,7 @@ const accountAndListFunc = (bool) => {
             <div class="flex">
                 <div class="h-[50px] p-2 border-[1px] border-gray-900 rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
                     <div class="flex items-center justify-center mt-2.5 px-1">
-                        <img src="https://via.placeholder.com/35x20" alt="">
+                        <img class="mb-3 mr-1" width="23" src="/images/flags/US.png" alt="">
                         <div class="text-[15px] text-white -mt-2 -mr-0.5 font-extrabold">EN</div>
                         <MenuDownIcon class="-mr-4 -mt-1.5 pr-1" fillColor="#c2c2c2" :size="20" />
                     </div>
@@ -193,20 +193,23 @@ const accountAndListFunc = (bool) => {
             <slot />
         </main>
                    
-            <div class="w-full bg-white mt-10">
+            <div class="w-full bg-white mt-10 overflow-x-scroll">
                 <div class="max-w-[1500px] mx-auto">
                     <div class="text-[23px] pt-4 font-extrabold">Recommended based on your shopping trends</div>
                     <div class="flex justify-center items-stretch">
-                        <div class="p-4 text-center mx-auto">
-                            <div class="w-[158px] h-[150px] overflow-hidden">
-                                <img src="https://via.placeholder.com/158x150" alt="">
-                            </div>
-                            <div class="w-[160px] text-[12px] py-2 text-teal-600 font-extrabold hover:text-red-600 cursor-pointer">
-                                This is a test title
-                            </div>
-                            <div class="flex justify-start">
-                                <div class="text-xs font-extrabold text-red-600 w-full text-left ">
-                                    $99.99
+                        <div v-for="product in $page.props.random_products" :key="products" >
+                            <div class="p-4 text-center mx-auto">
+                                <div class="w-[158px] h-[150px] overflow-hidden">
+                                    <img :src="product.image" alt="">
+                                </div>
+                                <div class="w-[160px] text-[12px] py-2 text-teal-600 font-extrabold hover:text-red-600 cursor-pointer">
+                                    {{ product.title.substring(0, 40) }}...
+                                </div>
+                                <div class="flex justify-start">
+                                    <div class="text-xs font-extrabold text-red-600 w-full text-left ">
+                                        ${{ product.price }}
+                                    </div>
+                                    <img width="50" src="/images/logo/PRIME_LOGO.PNG" alt="">
                                 </div>
                             </div>
                         </div>
@@ -288,9 +291,11 @@ const accountAndListFunc = (bool) => {
                 Shop by Department
             </div>
 
-            <div class="hover:bg-gray-200 pl-6 pr-3">
-                <div class="py-2.5 text-[13px] text-black flex justify-between items-center hover:bg-gray-200 cursor-pointer">
-                    Computers <ChevronRightIcon :size="20" fillColor="#808080" />
+            <div v-for="cat in $page.props.categories" :key="cat">
+                <div class="hover:bg-gray-200 pl-6 pr-3">
+                    <Link hred="/" class="py-2.5 text-[13px] text-black flex justify-between items-center hover:bg-gray-200 cursor-pointer">
+                        {{ cat.name }} <ChevronRightIcon :size="20" fillColor="#808080" />
+                    </Link>
                 </div>
             </div>
         </div>
