@@ -2,6 +2,12 @@ import './bootstrap';
 import '../css/app.css';
 import 'animate.css';
 
+import { createPinia } from 'pinia'
+import piniaPluginPresistedstate from 'pinia-plugin-persistedstate'
+
+const pinia = createPinia()
+pinia.use(piniaPluginPresistedstate)
+
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/inertia-vue3';
 import { InertiaProgress } from '@inertiajs/progress';
@@ -15,10 +21,11 @@ createInertiaApp({
     resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
     setup({ el, app, props, plugin }) {
         return createApp({ render: () => h(app, props) })
+            .use(pinia)
             .use(plugin)
             .use(ZiggyVue, Ziggy)
             .mount(el);
     },
 });
 
-InertiaProgress.init({ color: '#4B5563' });
+InertiaProgress.init({ color: '#4B5f63' });
